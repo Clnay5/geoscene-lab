@@ -1,4 +1,4 @@
-import {selectScenes,toGeoJSON,splitBBox,validateBBox} from './core.mjs';
+import {selectScenes,toGeoJSON,splitBBox,validateBBox} from './core.mjs?v=0.1.1';
 import {demoItems,defaultOptions} from './demo.mjs';
 const $=id=>document.getElementById(id);
 let items=structuredClone(demoItems),report,options,selected=0,synthetic=true;
