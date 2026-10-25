@@ -13,7 +13,7 @@ function renderMap(){
  let svg='<defs><pattern id="grid" width="36" height="30" patternUnits="userSpaceOnUse"><path d="M 36 0 L 0 0 0 30" fill="none" stroke="#26383d" stroke-width=".6"/></pattern></defs><rect width="900" height="390" fill="url(#grid)"/>';
  for(let i=0;i<5;i++){let lon=minX+(maxX-minX)*i/4,lat=minY+(maxY-minY)*i/4;svg+=`<text x="${x(lon)}" y="378" fill="#738b8d" font-size="10" text-anchor="middle">${lon.toFixed(2)}°</text><text x="6" y="${y(lat)}" fill="#738b8d" font-size="10">${lat.toFixed(2)}°</text>`;}
  function rect(box,stroke,fill,dash=''){const [w,s,e,n]=box;return `<rect x="${x(w)}" y="${y(n)}" width="${x(e)-x(w)}" height="${y(s)-y(n)}" fill="${fill}" stroke="${stroke}" stroke-width="1.5" ${dash?'stroke-dasharray="6 5"':''}/>`;}
- report.accepted.forEach((r,i)=>{for(const b of splitBBox(r.item.bbox)){svg+=rect(b,i===selected?'#d6e8b0':'#69a5c5',i===selected?'#b7edb720':'#69a5c510');svg+=`<text x="${x(b[0])+7}" y="${y(b[3])+16}" font-size="11" fill="#91b7c8">${escape(r.item.id)}</text>`;}});
+ report.accepted.forEach((r,i)=>{for(const b of splitBBox(r.item.bbox)){svg+=rect(b,i===selected?'#d6e8b0':'#69a5c5',i===selected?'#b7edb720':'#69a5c510');if(i===selected)svg+=`<text x="${x(b[0])+7}" y="${y(b[3])-8}" font-size="11" fill="#d6e8b0">选中：${escape(r.item.id)}</text>`;}});
  for(const b of splitBBox(options.aoi))svg+=rect(b,'#b7edb7','#b7edb718',true);
  svg+='<text x="850" y="30" fill="#b7edb7" font-size="11">N ↑</text>';
  $('map').innerHTML=svg;$('map-extent').textContent=options.aoi.map(n=>n.toFixed(2)).join(' / ');
@@ -35,3 +35,4 @@ $('bbox').addEventListener('input',()=>{$('preset').value='custom';});
 $('preset').addEventListener('change',()=>{if($('preset').value==='wuhan')$('bbox').value=defaultOptions.aoi.join(',');if($('preset').value==='dateline')$('bbox').value='179,-10,-179,10';run();});
 $('upload').addEventListener('change',async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>10*1024*1024)throw new Error('文件不能超过 10 MB');const data=JSON.parse(await file.text());const list=Array.isArray(data)?data:data.type==='FeatureCollection'?data.features:data.type==='Feature'?[data]:null;if(!Array.isArray(list)||!list.length)throw new Error('请输入非空 STAC Item、Item 数组或 FeatureCollection');if(list.length>20000)throw new Error('单次最多导入 20,000 景');items=list;synthetic=false;$('data-note').textContent=`已导入 ${file.name}，共 ${items.length} 景；许可与数据真实性由原始目录决定。`;run();}catch(e){$('error').textContent=e.message;}});
 run();
+
