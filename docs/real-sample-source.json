@@ -1,0 +1,16 @@
+{
+  "matched": 60,
+  "note": "Queried up to 100 Items; retained 10 lowest scene-level cloud metadata records from returned page. Not an unbiased sample. Normalized fields: identity, geometry, bbox, datetime, cloud, platform, source links, red and NIR assets. No raster downloaded.",
+  "query": "https://earth-search.aws.element84.com/v1/search?collections=sentinel-2-l2a&bbox=114.1,30.1,114.7,30.7&datetime=2025-09-01T00:00:00Z/2025-09-30T23:59:59Z&limit=100",
+  "fetched_at": "2026-10-25T10:01:57.5213203Z",
+  "collection": "sentinel-2-l2a",
+  "collection_license": "proprietary",
+  "collection_links": [
+    {
+      "rel": "license",
+      "href": "https://sentinel.esa.int/documents/247904/690755/Sentinel_Data_Legal_Notice",
+      "title": "proprietary"
+    }
+  ],
+  "returned": 60
+}

@@ -6,7 +6,9 @@
 
 ### [GeoScene Lab](https://github.com/Clnay5/geoscene-lab)
 
-遥感影像选型与 STAC 元数据审计工作台：研究区／时间／云量筛选、跨日期变更线处理、可解释评分、GeoJSON 导出。提供 26 项核心测试及可复现的合成元数据性能基准。个人实验项目，AI 辅助开发。
+[在线演示](https://clnay5.github.io/geoscene-lab/) · [真实 Sentinel-2 案例](https://github.com/Clnay5/geoscene-lab/blob/main/docs/real-case.md)
+
+遥感影像选型与 STAC 元数据审计工作台：研究区／时间／云量筛选、跨日期变更线处理、可解释评分、GeoJSON 导出。提供 28 项核心测试及可复现的合成元数据性能基准。个人实验项目，AI 辅助开发。
 
 ### [遥感图像处理 Demo](https://github.com/Clnay5/-)
 

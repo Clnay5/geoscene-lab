@@ -44,6 +44,8 @@ export function auditItem(item) {
   if(!item || typeof item!=='object') return [{severity:'error',code:'ITEM',message:'Item 必须是对象'}];
   if(item.type!=='Feature') add('error','TYPE','STAC Item 的 type 须为 Feature');
   if(typeof item.id!=='string'||!item.id.trim()) add('error','ID','缺少有效 id');
+  if(!item.properties||typeof item.properties!=='object'||Array.isArray(item.properties)) add('error','PROPERTIES','properties 必须是对象');
+  if(item.links!==undefined&&(!Array.isArray(item.links)||item.links.some(l=>!l||typeof l.rel!=='string'||typeof l.href!=='string'))) add('error','LINKS','links 必须是含 rel 和 href 字符串的对象数组');
   if(typeof item.stac_version!=='string') add('warning','VERSION','缺少 stac_version');
   try {validateBBox(item.bbox);} catch {add('error','BBOX','仅支持有效的二维 WGS84 bbox');}
   const [start,end]=interval(item);
@@ -53,7 +55,7 @@ export function auditItem(item) {
   else if(typeof cloud!=='number'||!Number.isFinite(cloud)||cloud<0||cloud>100) add('error','CLOUD_RANGE','云量须为 0–100 的数字');
   if(!item.geometry) add('warning','GEOMETRY','缺少 geometry：只能使用包围盒近似');
   if(!item.assets || !Object.values(item.assets).some(a=>a&&typeof a.href==='string'&&a.href.trim())) add('warning','ASSETS','未发现有效资产地址');
-  if(!item.properties?.license && !item.links?.some(l=>l.rel==='license'||l.rel==='collection')) add('warning','LICENSE','请从所属 Collection 核对许可');
+  if(!item.properties?.license && !(Array.isArray(item.links)&&item.links.some(l=>l&&(l.rel==='license'||l.rel==='collection')))) add('warning','LICENSE','请从所属 Collection 核对许可');
   return issues;
 }
 export function selectScenes(items,options) {

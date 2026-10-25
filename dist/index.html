@@ -13,7 +13,7 @@
 <label for="cloud">最大云量 <output id="cloud-value">30%</output></label><input type="range" id="cloud" min="0" max="100" value="30"><div class="range-label"><span>晴空优先</span><span>全部云量</span></div>
 <label class="check"><input type="checkbox" id="unknown">包含云量未知的影像</label>
 <button id="run" class="primary">运行空间筛选 <span>↗</span></button>
-<div class="divider"></div><label for="upload">导入自己的 STAC Item / ItemCollection</label><input type="file" id="upload" accept=".json,.geojson,application/json"><button id="reset" class="secondary">恢复演示数据</button>
+<div class="divider"></div><button id="real" class="secondary" style="width:100%">载入真实 Sentinel-2 样例 ↗</button><label for="upload">导入自己的 STAC Item / ItemCollection</label><input type="file" id="upload" accept=".json,.geojson,application/json"><button id="reset" class="secondary">恢复演示数据</button>
 <p id="data-note" class="data-note">当前为 8 景合成演示数据，无真实影像像元。</p><p id="error" role="alert"></p>
 </aside>
 <div class="analysis"><div class="metrics"><div><small>目录影像</small><strong id="total">—</strong></div><div><small>满足条件</small><strong id="matched">—</strong></div><div><small>最高评分</small><strong id="best">—</strong></div><div><small>待核对提示</small><strong id="warnings">—</strong></div></div>

@@ -29,3 +29,5 @@ test('dateline output is a MultiPolygon with two closed rings',()=>{const a=item
 test('score equals sum of components and stays bounded',()=>{for(const r of selectScenes(demoItems,{...defaultOptions,maxCloud:100,includeUnknownCloud:true}).accepted){assert.equal(r.score,Object.values(r.components).reduce((a,b)=>a+b,0));assert.ok(r.score>=0&&r.score<=100);}});
 test('input objects are never mutated',()=>{const before=JSON.stringify(demoItems);selectScenes(demoItems,defaultOptions);assert.equal(JSON.stringify(demoItems),before);});
 test('empty catalog yields valid empty export',()=>assert.equal(toGeoJSON(selectScenes([],defaultOptions)).features.length,0));
+test('malformed links are audited without crashing catalog selection',()=>{for(const links of [{bad:true},[null],[{}]]){const a=item();a.links=links;assert.ok(selectScenes([a],defaultOptions).rejected[0].reasons.includes('LINKS'));}});
+test('malformed properties are rejected as metadata errors',()=>{const a=item();a.properties=[];assert.ok(selectScenes([a],defaultOptions).rejected[0].reasons.includes('PROPERTIES'));});
