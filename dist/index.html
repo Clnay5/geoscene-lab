@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="GeoScene Lab — 可解释的遥感影像选型与 STAC 元数据审计工作台"><title>GeoScene Lab · 遥感影像选型工作台</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><a class="brand" href="#"><span class="mark">◈</span> GeoScene<span>Lab</span></a><nav><a href="#workspace">影像工作台</a><a href="#method">方法与边界</a><a href="https://github.com/Clnay5" target="_blank" rel="noreferrer">GitHub ↗</a></nav><span class="status">● 浏览器本地计算</span></header>
+<main>
+<section class="intro"><div><div class="eyebrow">EARTH OBSERVATION / SCENE INTELLIGENCE</div><h1>找到适合研究区的<br><em>下一景影像。</em></h1><p>从空间覆盖、云量到元数据质量，让每一次影像选择都有据可依。</p></div><div class="intro-note"><span>01 / SELECT · AUDIT · EXPORT</span><p>STAC 元数据驱动<br>可解释评分 · 可复现筛选</p><small>GIS 工程实验项目 / v0.1</small></div></section>
+<section id="workspace" class="workspace">
+<aside class="controls"><div class="panel-heading"><span>研究区与筛选</span><small>WGS84 / EPSG:4326</small></div>
+<label for="preset">研究区预设</label><select id="preset"><option value="wuhan">武汉 · 长江中游</option><option value="dateline">跨日期变更线 · 边界测试</option><option value="custom">自定义范围</option></select>
+<label for="bbox">范围 [西, 南, 东, 北]</label><input id="bbox" value="114.1,30.1,114.7,30.7" spellcheck="false"><small>西经大于东经时，按跨 ±180° 经线处理。</small>
+<div class="date-grid"><div><label for="from">开始日期</label><input type="date" id="from" value="2026-09-01"></div><div><label for="to">结束日期</label><input type="date" id="to" value="2026-09-30"></div></div>
+<label for="cloud">最大云量 <output id="cloud-value">30%</output></label><input type="range" id="cloud" min="0" max="100" value="30"><div class="range-label"><span>晴空优先</span><span>全部云量</span></div>
+<label class="check"><input type="checkbox" id="unknown">包含云量未知的影像</label>
+<button id="run" class="primary">运行空间筛选 <span>↗</span></button>
+<div class="divider"></div><label for="upload">导入自己的 STAC Item / ItemCollection</label><input type="file" id="upload" accept=".json,.geojson,application/json"><button id="reset" class="secondary">恢复演示数据</button>
+<p id="data-note" class="data-note">当前为 8 景合成演示数据，无真实影像像元。</p><p id="error" role="alert"></p>
+</aside>
+<div class="analysis"><div class="metrics"><div><small>目录影像</small><strong id="total">—</strong></div><div><small>满足条件</small><strong id="matched">—</strong></div><div><small>最高评分</small><strong id="best">—</strong></div><div><small>待核对提示</small><strong id="warnings">—</strong></div></div>
+<div class="map-card"><div class="map-top"><div><span class="live-dot"></span>空间覆盖概览 <small>等距圆柱投影示意 / 非底图</small></div><span id="map-extent"></span></div><svg id="map" role="img" aria-label="研究区及候选影像包围盒示意图" viewBox="0 0 900 390"></svg><div class="legend"><span><i class="aoi-key"></i>研究区</span><span><i class="scene-key"></i>候选景范围</span><span>包围盒覆盖率 ≠ 有效像元覆盖率</span></div></div>
+<div class="results-head"><div><h2>候选影像</h2><p>点击一景查看评分依据与审计提示</p></div><div><button id="export" class="secondary">导出 GeoJSON ↓</button><button id="report" class="secondary">审计报告 ↓</button></div></div>
+<div class="result-grid"><div id="scene-list" class="scene-list"></div><div id="detail" class="detail" aria-live="polite"></div></div>
+<details class="rejected"><summary id="rejected-title">查看排除原因</summary><div id="rejected-list"></div></details></div></section>
+<section id="method" class="method"><div><div class="eyebrow">WHY THIS SCENE?</div><h2>空间分析，要讲得清楚。</h2><p>一个聚焦影像选型的轻量 GIS 工具。导入文件在本地处理，不上传；没有 API 密钥或在线服务依赖。</p></div><div class="method-items"><article><b>60 / 30 / 10</b><h3>透明的加权评分</h3><p>覆盖率占 60%，清晰度占 30%，元数据完整度占 10%。未知云量的清晰度计零，权重是可讨论的启发式选择。</p></article><article><b>±180°</b><h3>地理边界明确处理</h3><p>跨日期变更线拆分范围，按球面矩形面积计算交集。当前仅分析二维 WGS84 bbox，不计算真实影像多边形。</p></article><article><b>STAC → GIS</b><h3>可追溯的分析结果</h3><p>保存筛选条件、评分分项及排除原因。GeoJSON 可导入 QGIS；审计为基础规则检查，非完整 STAC Schema 验证。</p></article></div></section>
+</main><footer><span>GeoScene Lab · Clnay5</span><span>独立实现 · 灵感来自空间情报可视化与 STAC 生态</span><a href="https://github.com/bilawalsidhu/gods-eye-view" target="_blank" rel="noreferrer">参考项目 ↗</a></footer><script type="module" src="app.mjs"></script>
+</body></html>

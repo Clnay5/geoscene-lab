@@ -1,0 +1,16 @@
+{
+  "name": "geoscene-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Explainable STAC scene selection and metadata quality workbench",
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "benchmark": "node scripts/benchmark.mjs",
+    "audit": "node src/cli.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "license": "MIT"
+}

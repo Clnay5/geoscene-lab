@@ -74,4 +74,3 @@ docs/benchmark.json      本机性能原始记录
 优先接入一个真实公开 STAC 目录并保存可复现实验，再加入多边形精确相交、研究区像元云掩膜和 COG 渲染。暂不把规划中的能力写进已完成成果。
 
 代码采用 [MIT](LICENSE) 许可。参考、数据与原创范围见 [ATTRIBUTION.md](ATTRIBUTION.md)。
-
